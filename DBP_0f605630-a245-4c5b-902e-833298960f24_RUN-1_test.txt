@@ -1,0 +1,40 @@
+-- ============================================================
+-- MIGRATION SCRIPT
+-- ============================================================
+-- Target: PRODAUTO.TESTPRODAUTO
+-- ============================================================
+
+USE DATABASE PRODAUTO;
+USE SCHEMA TESTPRODAUTO;
+
+
+-- ------------------------------------------------------------
+-- DROP OBJECTS
+-- ------------------------------------------------------------
+
+DROP TABLE IF EXISTS "PRODAUTO"."TESTPRODAUTO"."PROD_ONLY_TABLE";
+
+-- ------------------------------------------------------------
+-- CREATE OBJECTS
+-- ------------------------------------------------------------
+
+CREATE OR REPLACE TABLE DEV_ONLY_TABLE (
+	ID NUMBER(38,0) NOT NULL,
+	NAME VARCHAR(100) NOT NULL,
+	CREATED_AT TIMESTAMP_NTZ(9) DEFAULT CURRENT_TIMESTAMP(),
+	primary key (ID)
+);
+
+
+-- ------------------------------------------------------------
+-- ALTER OBJECTS
+-- ------------------------------------------------------------
+
+ALTER TABLE "PRODAUTO"."TESTPRODAUTO"."SHARED_TABLE" ADD COLUMN "EMAIL" VARCHAR(200);
+ALTER TABLE "PRODAUTO"."TESTPRODAUTO"."SHARED_TABLE" ADD COLUMN "SALARY" NUMBER(10,2);
+ALTER TABLE "PRODAUTO"."TESTPRODAUTO"."SHARED_TABLE" DROP COLUMN "PHONE";
+ALTER TABLE "PRODAUTO"."TESTPRODAUTO"."SHARED_TABLE" ALTER COLUMN "FIRST_NAME" SET DATA TYPE VARCHAR(100);
+
+-- ============================================================
+-- END - 6 statement(s)
+-- ============================================================
